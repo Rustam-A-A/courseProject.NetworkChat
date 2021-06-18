@@ -21,7 +21,7 @@ public class Server {
                 ClientWorker w = new ClientWorker(serverChannel, messages);
                 Thread t = new Thread(w);
                 t.start();
-                Thread.sleep(1000);
+                Thread.sleep(100);
             }catch (NullPointerException | InterruptedException e){
                 e.printStackTrace();
             }

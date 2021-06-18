@@ -16,7 +16,7 @@ public class Messages {
     }
 
     public String printChat() {
-        String result = "+";
+        String result = "";
         for (int i = 0; i < messages.size(); i++) {
             result += i + ": " + messages.get(i) + "\n";
         }
