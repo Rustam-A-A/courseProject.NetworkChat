@@ -14,9 +14,12 @@ public class Client {
         final SocketChannel socketChannel = SocketChannel.open();
         socketChannel.connect(socketAddress);
 
-        User user = new User("John");
-
         try (Scanner scanner = new Scanner(System.in)){
+
+            System.out.println("Please tap your name ");
+            String name = scanner.nextLine();
+            User user = new User(name);
+
             final ByteBuffer inputBuffer= ByteBuffer.allocate(2 << 10);
             String msg;
             while (true){

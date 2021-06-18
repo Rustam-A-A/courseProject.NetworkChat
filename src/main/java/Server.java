@@ -4,9 +4,12 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
     public static final int SERVER_PORT = 10101;
+    private static Messages messages;
     ServerSocketChannel serverChannel;
 
     public static void main(String[] args) throws IOException {
@@ -15,13 +18,13 @@ public class Server {
 
         while(true){
             try {
-                ClientWorker w = new ClientWorker(serverChannel);
+                ClientWorker w = new ClientWorker(serverChannel, messages);
                 Thread t = new Thread(w);
                 t.start();
-            }catch (NullPointerException e){
+                Thread.sleep(1000);
+            }catch (NullPointerException | InterruptedException e){
                 e.printStackTrace();
             }
-
         }
     }
 }
