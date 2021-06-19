@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Client {
-    public static final int SERVER_PORT = 10101;
+    public static final int SERVER_PORT = 23411;
 
     public static void main(String[] args) throws IOException {
 
@@ -14,15 +14,17 @@ public class Client {
         final SocketChannel socketChannel = SocketChannel.open();
         socketChannel.connect(socketAddress);
 
-        User user = new User("John");
-
         try (Scanner scanner = new Scanner(System.in)){
+            System.out.println("Please tip your NICKNAME in one word");
+            String nickName = scanner.nextLine();
+            User user = new User(nickName);
+
             final ByteBuffer inputBuffer= ByteBuffer.allocate(2 << 10);
             String msg;
             while (true){
                 System.out.println("\nYour message: ");
                 msg = user.getName() + ": " + scanner.nextLine();
-                if ("end".equals(msg)) break;
+                if ("end".equals(scanner.nextLine())) break;
                 socketChannel.write(ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8)));
                 int bytesCount = socketChannel.read(inputBuffer);
                 System.out.println(new String(inputBuffer.array(), 0,

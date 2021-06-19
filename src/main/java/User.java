@@ -1,15 +1,15 @@
 public class User {
-    private String name;
+    private String nickName;
 
-    public User(String name){
-        this.name = name;
+    public User(String nickName){
+        this.nickName = nickName;
     }
 
     public String getName() {
-        return name;
+        return nickName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nickName = nickName;
     }
 }
