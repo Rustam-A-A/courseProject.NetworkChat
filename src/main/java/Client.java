@@ -5,7 +5,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-public class Client {
+public class Client extends Thread{
     public static final int SERVER_PORT = 23411;
 
     public static void main(String[] args) throws IOException {
@@ -15,6 +15,7 @@ public class Client {
         socketChannel.connect(socketAddress);
 
         try (Scanner scanner = new Scanner(System.in)){
+
             System.out.println("Please tip your NICKNAME in one word");
             String nickName = scanner.nextLine();
             User user = new User(nickName);
@@ -26,15 +27,21 @@ public class Client {
                 msg = user.getName() + ": " + scanner.nextLine();
                 if ("end".equals(scanner.nextLine())) break;
                 socketChannel.write(ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8)));
-                int bytesCount = socketChannel.read(inputBuffer);
-                System.out.println(new String(inputBuffer.array(), 0,
-                        bytesCount, StandardCharsets.UTF_8).trim());
-                inputBuffer.clear();
+
+                new Thread(new MessageReceiver(socketChannel, inputBuffer)).start();
+
+//                int bytesCount = socketChannel.read(inputBuffer);
+//                System.out.println(new String(inputBuffer.array(), 0,
+//                        bytesCount, StandardCharsets.UTF_8).trim());
+//                inputBuffer.clear();
             }
         } finally {
             socketChannel.close();
         }
+
     }
+
+
 }
 
 

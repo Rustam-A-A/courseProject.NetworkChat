@@ -8,15 +8,12 @@ import java.util.*;
 
 class ClientWorker implements Runnable {
     ServerSocketChannel serverChannel;
-    //final List<SocketChannel>channels;
-    Vector<SocketChannel> channels;
+    final List<SocketChannel>channels;
 
-    public ClientWorker(ServerSocketChannel serverChannel, Vector<SocketChannel> channels){
-    //public ClientWorker(ServerSocketChannel serverChannel, List<SocketChannel>channels){
+    public ClientWorker(ServerSocketChannel serverChannel, List<SocketChannel> channels){
         this.serverChannel = serverChannel;
         this.channels = channels;
     }
-    //private final List<SocketChannel>channels = Collections.synchronizedList(new ArrayList<>());
 
     //Map clients = new HashMap();
     List<String>usersNickNames = new ArrayList<>();

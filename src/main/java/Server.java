@@ -17,11 +17,7 @@ public class Server {
         final ServerSocketChannel serverChannel = ServerSocketChannel.open();
         serverChannel.bind(new InetSocketAddress("localhost", SERVER_PORT));
 
-        //List<SocketChannel> channels = Collections.synchronizedList(new ArrayList<>());
-        Vector<SocketChannel> channels = new Vector<SocketChannel>();
-
-        //List<SocketChannel> channels = new ArrayList<>();
-
+        List<SocketChannel> channels = Collections.synchronizedList(new ArrayList<>());
 
         while(true){
             synchronized (channels){
