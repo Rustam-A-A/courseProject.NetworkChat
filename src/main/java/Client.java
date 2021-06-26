@@ -29,11 +29,6 @@ public class Client extends Thread{
                 socketChannel.write(ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8)));
 
                 new Thread(new MessageReceiver(socketChannel, inputBuffer)).start();
-
-//                int bytesCount = socketChannel.read(inputBuffer);
-//                System.out.println(new String(inputBuffer.array(), 0,
-//                        bytesCount, StandardCharsets.UTF_8).trim());
-//                inputBuffer.clear();
             }
         } finally {
             socketChannel.close();

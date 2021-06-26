@@ -19,12 +19,12 @@ public class MessageReceiver extends Thread{
     @Override
     public void run() {
         try {
-            int bytesCount = socketChannel.read(inputBuffer);
-            System.out.println(new String(inputBuffer.array(), 0,
+            while(socketChannel != null) {
+                int bytesCount = socketChannel.read(inputBuffer);
+                System.out.println(new String(inputBuffer.array(), 0,
                     bytesCount, StandardCharsets.UTF_8).trim());
-            inputBuffer.clear();
-        } catch (IOException  | NullPointerException exception) {
-            exception.printStackTrace();
-        }
+                inputBuffer.clear();
+            }
+        } catch(Exception ex) {}
     }
 }

@@ -39,13 +39,10 @@ class ClientWorker implements Runnable {
 
                     inputBuffer.clear();
                     System.out.println(msg);
-                    synchronized (channels){
                         for (SocketChannel c : channels){
                             c.write(ByteBuffer.wrap(("\n" + msg)
                                     .getBytes(StandardCharsets.UTF_8)));
                         }
-                    }
-
                 }
             } catch (IOException e){
                 System.out.println(e.getMessage());
