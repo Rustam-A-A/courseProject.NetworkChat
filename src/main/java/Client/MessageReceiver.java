@@ -1,3 +1,5 @@
+package Client;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -10,6 +12,7 @@ public class MessageReceiver extends Thread{
     SocketChannel socketChannel;
     final ByteBuffer inputBuffer;
 
+    Logger logger = Logger.getInstance();
 
     public MessageReceiver(SocketChannel socketChannel, ByteBuffer inputBuffer){
         this.socketChannel = socketChannel;
@@ -21,8 +24,10 @@ public class MessageReceiver extends Thread{
         try {
             while(socketChannel != null) {
                 int bytesCount = socketChannel.read(inputBuffer);
-                System.out.println(new String(inputBuffer.array(), 0,
-                    bytesCount, StandardCharsets.UTF_8).trim());
+                String msg = new String(inputBuffer.array(), 0,
+                        bytesCount, StandardCharsets.UTF_8).trim();
+                System.out.println(msg);
+                logger.log(msg + "\n");
                 inputBuffer.clear();
             }
         } catch(Exception ex) {}

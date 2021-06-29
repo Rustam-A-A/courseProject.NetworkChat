@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
@@ -9,9 +11,11 @@ public class SendingMessage {
     String message;
     PrintWriter output;
     SocketChannel socketChannel;
+    Logger logger = Logger.getInstance();
 
     public void sendMessage(String name,String  output) throws IOException {
-        socketChannel.write(ByteBuffer.wrap(("Server: \n" + output)
+        socketChannel.write(ByteBuffer.wrap(("Server.Server: \n" + output)
                 .getBytes(StandardCharsets.UTF_8)));
+        logger.log(output);
     }
 }

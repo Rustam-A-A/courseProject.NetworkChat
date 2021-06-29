@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -17,6 +19,7 @@ class ClientWorker implements Runnable {
 
     //Map clients = new HashMap();
     List<String>usersNickNames = new ArrayList<>();
+    Logger logger = Logger.getInstance();
 
 
     @Override
@@ -31,6 +34,7 @@ class ClientWorker implements Runnable {
                     if (bytesCount == -1) break;
                     final String msg = new String(inputBuffer.array(), 0,
                             bytesCount, StandardCharsets.UTF_8);
+                    logger.log(msg + "\n");
 
                     String nickName = GettingNickName.getNickName(msg);
                     usersNickNames.add(nickName);

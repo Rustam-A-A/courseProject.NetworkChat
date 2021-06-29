@@ -1,4 +1,9 @@
+package Client;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -9,10 +14,12 @@ public class Client extends Thread{
     public static final int SERVER_PORT = 23411;
 
     public static void main(String[] args) throws IOException {
+        Logger logger = Logger.getInstance();
 
         InetSocketAddress socketAddress = new InetSocketAddress("127.0.0.1", SERVER_PORT);
         final SocketChannel socketChannel = SocketChannel.open();
         socketChannel.connect(socketAddress);
+
 
         try (Scanner scanner = new Scanner(System.in)){
 
@@ -25,6 +32,7 @@ public class Client extends Thread{
             while (true){
                 System.out.println("\nYour message: ");
                 msg = user.getName() + ": " + scanner.nextLine();
+                logger.log(msg + "\n");
                 if ("end".equals(scanner.nextLine())) break;
                 socketChannel.write(ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8)));
 
@@ -35,6 +43,15 @@ public class Client extends Thread{
         }
 
     }
+
+//    public static void writeDownYourMsg(File file, String text){
+//        try(FileOutputStream fileOutputStream = new FileOutputStream(file, true);
+//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+//            objectOutputStream.writeObject(text);
+//        }catch(IOException ex){
+//            System.out.println(ex.getMessage());
+//        }
+//    }
 
 
 }
