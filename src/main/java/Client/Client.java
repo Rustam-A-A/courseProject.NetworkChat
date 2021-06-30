@@ -1,9 +1,6 @@
 package Client;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -23,20 +20,20 @@ public class Client extends Thread{
 
         try (Scanner scanner = new Scanner(System.in)){
 
-            System.out.println("Please tip your NICKNAME in one word");
+            System.out.println("Please tip your NICKNAME in one word\n");
             String nickName = scanner.nextLine();
             User user = new User(nickName);
-
             final ByteBuffer inputBuffer= ByteBuffer.allocate(2 << 10);
-            String msg;
+
+            //String msg;
             while (true){
-                System.out.println("\nYour message: ");
-                msg = user.getName() + ": " + scanner.nextLine();
+                new Thread(new MessageReceiver(socketChannel, inputBuffer)).start();
+
+                System.out.println("Your message: \n");
+                String msg = user.getName() + ": " + scanner.nextLine();
                 logger.log(msg + "\n");
                 if ("end".equals(scanner.nextLine())) break;
                 socketChannel.write(ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8)));
-
-                new Thread(new MessageReceiver(socketChannel, inputBuffer)).start();
             }
         } finally {
             socketChannel.close();

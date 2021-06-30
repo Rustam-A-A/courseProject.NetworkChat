@@ -9,22 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Logger<formatForDateNow> {
-    protected int num = 1;
-    private static Logger instance;
-    String time;
-    private static Logger logger;
 
-    Date date = new Date();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    private Logger() {
-        this.time = dateFormat.format(date);
-        this.num = num;
-//        File clientRecords1 = new File(
-//                "/Users/rustam/IdeaProjects/courseProject.NetworkChat/ClientRecords",
-//                "clientRecords1.txt"
-   //     );
-    }
 
     public static Logger getInstance() {
         if (instance == null) instance = new Logger();

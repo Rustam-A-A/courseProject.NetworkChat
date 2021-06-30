@@ -4,21 +4,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Logger<formatForDateNow> {
-    protected int num = 1;
+    protected static int num = 1;
     private static Logger instance;
-    String time;
     private static Logger logger;
-
-    Date date = new Date();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String time;
 
     private Logger() {
-        this.time = dateFormat.format(date);
+        this.time = LocalDateTime.now().format(formatter);
         this.num = num;
 //        File clientRecords1 = new File(
 //                "/Users/rustam/IdeaProjects/courseProject.NetworkChat/ClientRecords",

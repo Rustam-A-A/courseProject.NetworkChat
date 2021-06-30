@@ -44,8 +44,11 @@ class ClientWorker implements Runnable {
                     inputBuffer.clear();
                     System.out.println(msg);
                         for (SocketChannel c : channels){
-                            c.write(ByteBuffer.wrap(("\n" + msg)
-                                    .getBytes(StandardCharsets.UTF_8)));
+                            if (!c.equals(socketChannel)){
+                                c.write(ByteBuffer.wrap(("\n" + msg)
+                                        .getBytes(StandardCharsets.UTF_8)));
+                            }
+
                         }
                 }
             } catch (IOException e){
