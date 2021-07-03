@@ -17,7 +17,6 @@ public class Client extends Thread{
         final SocketChannel socketChannel = SocketChannel.open();
         socketChannel.connect(socketAddress);
 
-
         try (Scanner scanner = new Scanner(System.in)){
 
             System.out.println("Please tip your NICKNAME in one word\n");
@@ -25,11 +24,9 @@ public class Client extends Thread{
             User user = new User(nickName);
             final ByteBuffer inputBuffer= ByteBuffer.allocate(2 << 10);
 
-            //String msg;
             while (true){
                 new Thread(new MessageReceiver(socketChannel, inputBuffer)).start();
-
-                System.out.println("Your message: \n");
+                System.out.println("Your message: ");
                 String msg = user.getName() + ": " + scanner.nextLine();
                 logger.log(msg + "\n");
                 if ("end".equals(scanner.nextLine())) break;
@@ -38,19 +35,7 @@ public class Client extends Thread{
         } finally {
             socketChannel.close();
         }
-
     }
-
-//    public static void writeDownYourMsg(File file, String text){
-//        try(FileOutputStream fileOutputStream = new FileOutputStream(file, true);
-//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
-//            objectOutputStream.writeObject(text);
-//        }catch(IOException ex){
-//            System.out.println(ex.getMessage());
-//        }
-//    }
-
-
 }
 
 

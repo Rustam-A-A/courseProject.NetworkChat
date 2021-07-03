@@ -4,12 +4,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Logger<formatForDateNow> {
+    protected static int num = 1;
+    private static Logger instance;
+    private static Logger logger;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String time;
 
+    private Logger() {
+        this.time = LocalDateTime.now().format(formatter);
+        this.num = num;
+    }
 
     public static Logger getInstance() {
         if (instance == null) instance = new Logger();
@@ -26,4 +34,3 @@ public class Logger<formatForDateNow> {
         }
     }
 }
-

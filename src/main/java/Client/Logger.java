@@ -17,10 +17,6 @@ public class Logger<formatForDateNow> {
     private Logger() {
         this.time = LocalDateTime.now().format(formatter);
         this.num = num;
-//        File clientRecords1 = new File(
-//                "/Users/rustam/IdeaProjects/courseProject.NetworkChat/ClientRecords",
-//                "clientRecords1.txt"
-   //     );
     }
 
     public static Logger getInstance() {

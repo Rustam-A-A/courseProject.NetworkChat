@@ -1,24 +1,21 @@
 package Server;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 class ClientWorker implements Runnable {
     ServerSocketChannel serverChannel;
-    final List<SocketChannel>channels;
+    final CopyOnWriteArrayList<SocketChannel>channels;
 
-    public ClientWorker(ServerSocketChannel serverChannel, List<SocketChannel> channels){
+    public ClientWorker(ServerSocketChannel serverChannel, CopyOnWriteArrayList<SocketChannel>channels){
         this.serverChannel = serverChannel;
         this.channels = channels;
     }
 
-    //Map clients = new HashMap();
-    List<String>usersNickNames = new ArrayList<>();
     Logger logger = Logger.getInstance();
 
 
@@ -36,11 +33,6 @@ class ClientWorker implements Runnable {
                             bytesCount, StandardCharsets.UTF_8);
                     logger.log(msg + "\n");
 
-                    String nickName = GettingNickName.getNickName(msg);
-                    usersNickNames.add(nickName);
-
-                    //clients.put(nickName, socketChannel);
-
                     inputBuffer.clear();
                     System.out.println(msg);
                         for (SocketChannel c : channels){
@@ -48,7 +40,6 @@ class ClientWorker implements Runnable {
                                 c.write(ByteBuffer.wrap(("\n" + msg)
                                         .getBytes(StandardCharsets.UTF_8)));
                             }
-
                         }
                 }
             } catch (IOException e){
