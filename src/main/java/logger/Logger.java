@@ -1,4 +1,4 @@
-package Client;
+package logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,9 +23,10 @@ public class Logger<formatForDateNow> {
         if (instance == null) instance = new Logger();
         return instance;
     }
+    //File file = new File("/Users/rustam/IdeaProjects/courseProject.NetworkChat/ClientRecords", "clientRecords1.txt");
 
-    public void log(String msg) {
-        File file = new File("/Users/rustam/IdeaProjects/courseProject.NetworkChat/ClientRecords", "clientRecords1.txt");
+    public void log(String msg, File file) {
+        //File file = new File("/Users/rustam/IdeaProjects/courseProject.NetworkChat/ClientRecords", "clientRecords1.txt");
         try(FileOutputStream fileOutputStream = new FileOutputStream(file, true);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStream.writeObject(" [" + time + ", " + num++ + "] " + msg);

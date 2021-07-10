@@ -1,5 +1,7 @@
-package Client;
+package client;
+import logger.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -12,6 +14,7 @@ public class Client extends Thread{
 
     public static void main(String[] args) throws IOException {
         Logger logger = Logger.getInstance();
+        File file = new File("/Users/rustam/IdeaProjects/courseProject.NetworkChat/ClientRecords", "clientRecords1.txt");
 
         InetSocketAddress socketAddress = new InetSocketAddress("127.0.0.1", SERVER_PORT);
         final SocketChannel socketChannel = SocketChannel.open();
@@ -28,7 +31,7 @@ public class Client extends Thread{
                 new Thread(new MessageReceiver(socketChannel, inputBuffer)).start();
                 System.out.println("Your message: ");
                 String msg = user.getName() + ": " + scanner.nextLine();
-                logger.log(msg + "\n");
+                logger.log(msg + "\n", file);
                 if ("end".equals(scanner.nextLine())) break;
                 socketChannel.write(ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8)));
             }

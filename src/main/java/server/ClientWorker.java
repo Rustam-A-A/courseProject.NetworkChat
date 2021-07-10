@@ -1,5 +1,7 @@
-package Server;
+package server;
+import logger.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
@@ -17,6 +19,8 @@ class ClientWorker implements Runnable {
     }
 
     Logger logger = Logger.getInstance();
+    File file = new File("/Users/rustam/IdeaProjects/courseProject.NetworkChat/serverRecords", "serverRecords.txt");
+
 
 
     @Override
@@ -31,7 +35,7 @@ class ClientWorker implements Runnable {
                     if (bytesCount == -1) break;
                     final String msg = new String(inputBuffer.array(), 0,
                             bytesCount, StandardCharsets.UTF_8);
-                    logger.log(msg + "\n");
+                    logger.log(msg + "\n", file);
 
                     inputBuffer.clear();
                     System.out.println(msg);

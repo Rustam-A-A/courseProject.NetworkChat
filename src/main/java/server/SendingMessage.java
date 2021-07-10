@@ -1,5 +1,7 @@
-package Server;
+package server;
+import logger.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
@@ -12,10 +14,12 @@ public class SendingMessage {
     PrintWriter output;
     SocketChannel socketChannel;
     Logger logger = Logger.getInstance();
+    File file = new File("/Users/rustam/IdeaProjects/courseProject.NetworkChat/serverRecords", "serverRecords.txt");
+
 
     public void sendMessage(String name,String  output) throws IOException {
         socketChannel.write(ByteBuffer.wrap(("Server.Server: \n" + output)
                 .getBytes(StandardCharsets.UTF_8)));
-        logger.log(output);
+        logger.log(output, file);
     }
 }
